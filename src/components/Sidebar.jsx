@@ -5,11 +5,11 @@ const Sidebar = ({ items = [], title }) => {
     <aside className="w-64 flex-shrink-0 border-r border-neutral-800 bg-neutral-900/30 min-h-[calc(100vh-4rem)] hidden md:block">
       <div className="p-6 sticky top-16">
         {title && (
-          <h3 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4 px-3">
+          <NavLink to={`/learn/${title.toLowerCase()}`} className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-6 px-3">
             {title}
-          </h3>
+          </NavLink>
         )}
-        <nav className="space-y-1">
+        <nav className="space-y-1 mt-2">
           {items.map((item) => (
             <NavLink
               key={item.path}

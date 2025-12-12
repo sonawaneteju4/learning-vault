@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Atom, FileJson, Server, LayoutTemplate } from 'lucide-react';
+import { topicsList } from '../data/topics';
 
 const Home = () => {
   const containerVariants = {
@@ -82,40 +83,7 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { 
-                title: "React JS", 
-                path: "/learn/react", 
-                desc: "Hooks, patterns, and performance.",
-                Icon: Atom,
-                color: "from-blue-400/20 to-cyan-400/20",
-                iconColor: "text-blue-400"
-              },
-              { 
-                title: "JavaScript", 
-                path: "/learn/javascript", 
-                desc: "ES6+, async, and closures.",
-                Icon: FileJson,
-                color: "from-yellow-400/20 to-orange-400/20",
-                iconColor: "text-yellow-400"
-              },
-              { 
-                title: "Node.js", 
-                path: "/learn/node", 
-                desc: "Runtime, events, and streams.",
-                Icon: Server,
-                color: "from-green-400/20 to-emerald-400/20", 
-                iconColor: "text-green-400"
-              },
-              { 
-                title: "System Design", 
-                path: "/learn/system-design", 
-                desc: "Scale, dist-systems, and architecture.",
-                Icon: LayoutTemplate,
-                color: "from-purple-400/20 to-pink-400/20",
-                iconColor: "text-purple-400"
-              },
-            ].map((item, idx) => (
+            {topicsList.map((item, idx) => (
               <Link 
                 key={idx} 
                 to={item.path}

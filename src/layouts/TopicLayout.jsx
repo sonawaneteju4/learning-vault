@@ -1,6 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { useMemo } from 'react';
+import { topicDetails } from '../data/topics';
 
 const TopicLayout = () => {
   const { topic } = useParams();
@@ -12,7 +13,7 @@ const TopicLayout = () => {
     // So we glob everything and filter.
     const modules = import.meta.glob('/learnings/**/*.md');
     
-    return Object.keys(modules)
+    const mdItems = Object.keys(modules)
       .filter(path => path.includes(`/learnings/${topic}/`))
       .map(path => {
         // Extract filename without extension
@@ -28,13 +29,29 @@ const TopicLayout = () => {
             label,
             path: `/learn/${topic}/${fileName}`
         };
-      })
-      // Sort: index/notes first, then alphabetical
-      .sort((a, b) => {
-          if (a.label === 'Notes' || a.label === 'Index') return -1;
-          if (b.label === 'Notes' || b.label === 'Index') return 1;
-          return a.label.localeCompare(b.label);
       });
+    // 3. Merge and Sort
+    const mergedItems = [...mdItems];
+
+    const currentTopicData = topicDetails[topic];
+    if (currentTopicData && currentTopicData.customComponents) {
+      Object.keys(currentTopicData.customComponents).forEach(slug => {
+          mergedItems.push({
+              label: currentTopicData.customComponents[slug].title,
+              path: `/learn/${topic}/${slug}`
+          });
+      });
+    }
+
+    return mergedItems.sort((a, b) => {
+        if (a.label === 'Notes' || a.label === 'Index') return -1;
+        if (b.label === 'Notes' || b.label === 'Index') return 1;
+        
+        // Prioritize Topic Detail (Index) if we had a specific label for it, 
+        // but here we are just mixing MD and Components. 
+        
+        return a.label.localeCompare(b.label);
+    });
   }, [topic]);
 
   const topicTitle = topic?.charAt(0).toUpperCase() + topic?.slice(1);
