@@ -177,6 +177,7 @@ Open the Portal → Click category → Explore → Read → Run demos.
 ## 🤝 Contribution (Personal Only)
 
 This is primarily my personal learning repo, but improvements and suggestions are welcome.
+If you want to add or improve topics, please read the [Topic Contribution Guide](HOW_TO_ADD_TOPICS.md).
 
 ---
 
